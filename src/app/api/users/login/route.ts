@@ -3,7 +3,6 @@ import User from "@/models/userModel";
 import { NextRequest, NextResponse } from "next/server";
 import bcryptjs from "bcryptjs";
 import jwt from "jsonwebtoken";
-import { error } from "console";
 
 connect()
 
@@ -11,7 +10,7 @@ export async function POST(request: NextRequest){
     try {
 
         const reqBody = await request.json()
-        const {email, password,isVarified} = reqBody;
+        const {email, password} = reqBody;
         console.log(reqBody);
 
         //check if user exists
@@ -28,10 +27,10 @@ export async function POST(request: NextRequest){
             return NextResponse.json({error: "Invalid password"}, {status: 400})
         }
 
-        const verification = await User.findOne({isVarified})
-        if(!isVarified){
-            return NextResponse.json({error:"Verify the email"})
-        }
+        // const verification = await User.findOne({isVarified})
+        // if(!isVarified){
+        //     return NextResponse.json({error:"Verify the email"})
+        // }
         console.log(user);
         
         //create token data
